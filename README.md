@@ -36,16 +36,9 @@ button.primary,
     background-color: #HEX !important;
     border-color: #HEX !important;
 }
-
-.action.primary:hover,
-button.primary:hover,
-.action.tocart.primary:hover {
-    opacity: 0.9;
-}
 ```
 
 Os seletores cobrem todos os botões principais do Magento.
-A pseudo-classe :hover mantém o efeito visual ao passar o mouse sobre os botões.
 O uso de !important garante que o estilo inline sobrescreva quaisquer regras de CSS existentes no tema ou módulos de terceiros.
 
 ### Leitura e geração dinâmica do CSS
