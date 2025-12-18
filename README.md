@@ -99,7 +99,7 @@ Ou, se preferir, instale via Composer:
 
 ```bash
 composer config repositories.sistche-changebuttoncolor vcs https://github.com/figueiredowill/Sistche_ChangeButtonColor.git
-composer require sistche/changebuttoncolor:dev-main
+composer require sistche/change-button-color:dev-main
 ```
 
 Execute os comandos de habilitação do módulo:
