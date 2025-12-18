@@ -68,10 +68,6 @@ Foram verificados os seguintes cenários:
 - Inspeção visual dos botões no frontend, confirmando a aplicação correta da nova cor.
 - Inspeção do HTML gerado, validando que o CSS é injetado dinamicamente no `head` da página apenas quando uma cor está configurada.
 
-### Considerações finais
-
-Essas validações garantem que a solução funciona conforme esperado, respeitando o escopo de configuração do Magento, o funcionamento do sistema de cache e o requisito de aplicação imediata da alteração, sem necessidade de recompilação de assets estáticos.
-
 # Instalação e uso do módulo
 
 ## Instalação do módulo
