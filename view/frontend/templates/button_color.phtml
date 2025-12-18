@@ -1,0 +1,16 @@
+<?php if ($color = $block->getColor()): ?>
+    <style>
+        .action.primary,
+        button.primary,
+        .action.tocart.primary {
+            background-color: <?= $block->escapeHtml($color) ?> !important;
+            border-color: <?= $block->escapeHtml($color) ?> !important;
+        }
+
+        .action.primary:hover,
+        button.primary:hover,
+        .action.tocart.primary:hover {
+            opacity: 0.9;
+        }
+    </style>
+<?php endif; ?>
