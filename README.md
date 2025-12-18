@@ -1,3 +1,5 @@
+# Sistche_ChangeButtonColor
+
 # Decisões técnicas
 ### Persistência da configuração por escopo
 
@@ -5,16 +7,17 @@ O primeiro passo foi definir onde e como a cor seria armazenada. Para isso, o va
 
 ### Aplicação imediata da alteração no frontend
 
-Como o requisito do teste exige que a mudança seja aplicada de forma rápida e sem recompilação de assets, foi decidido não utilizar LESS ou o pipeline de static content. Em vez disso, a solução insere o CSS dinamicamente no `head` da página, permitindo que a alteração seja refletida imediatamente após a execução do comando, garantindo isolamento por store view.
+Como o requisito do teste exige que a mudança seja aplicada de forma dinâmica, rápida, com o mínimo de esforço por parte do usuário, foi decidido não utilizar LESS ou o pipeline de static content. Em vez disso, a solução insere o CSS dinamicamente no `head` da página, permitindo que a alteração seja refletida imediatamente após a execução do comando, garantindo isolamento por store view.
 
 ### Leitura e geração dinâmica do CSS
 
-No frontend, o Block PHP `Sistche\ChangeButtonColor\Block\ButtonColor` é responsável por consumir a configuração armazenada e gerar o CSS inline apenas quando uma cor está definida. Essa abordagem mantém a solução simples, com baixo acoplamento, segura e totalmente compatível com o sistema de cache do Magento.
+No frontend, o Block PHP `Sistche\ChangeButtonColor\Block\ButtonColor` é responsável por consumir a configuração armazenada e gerar o CSS inline apenas quando uma cor está definida.
 
 ### Limpeza de cache automatizada
 
-O comando CLI implementa a limpeza automática do cache (`bin/magento cache:clean`) **apenas se a execução for bem-sucedida**, garantindo que a nova configuração seja aplicada imediatamente no frontend. Dessa forma, o usuário não precisa executar comandos adicionais, mantendo o fluxo transparente e compatível com o sistema de cache do Magento.  
-> **Observação:** em ambientes maiores, a execução automática de limpeza de cache pode impactar o desempenho; nesse caso, é aceitável dado o escopo limitado e o requisito de aplicação imediata da alteração.
+O comando CLI implementa a limpeza automática do cache (`bin/magento cache:clean`) **apenas se a execução for bem-sucedida**, garantindo que a nova configuração seja aplicada imediatamente no frontend. Dessa forma, o usuário não precisa executar comandos adicionais.
+
+> **Observação:** Tenho ciência que em ambientes maiores, a execução automática de limpeza de cache pode impactar o desempenho; nesse caso, é aceitável dado o escopo limitado e o requisito de aplicação imediata da alteração.
 
 # Testes e validações
 
