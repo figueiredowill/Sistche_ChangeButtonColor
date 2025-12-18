@@ -95,6 +95,13 @@ Clone o repositório dentro do diretório `app/code` do Magento:
 git clone https://github.com/figueiredowill/Sistche_ChangeButtonColor.git app/code/Sistche/ChangeButtonColor
 ```
 
+Ou, se preferir, instale via Composer:
+
+```bash
+composer config repositories.sistche-changebuttoncolor vcs https://github.com/figueiredowill/Sistche_ChangeButtonColor.git
+composer require sistche/changebuttoncolor:dev-main
+```
+
 Execute os comandos de habilitação do módulo:
 ```bash
 bin/magento module:enable Sistche_ChangeButtonColor

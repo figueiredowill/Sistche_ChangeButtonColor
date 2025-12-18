@@ -1,0 +1,14 @@
+{
+  "name": "sistche/change-button-color",
+  "description": "Magento 2 module to change store-view button color",
+  "type": "magento2-module",
+  "license": "proprietary",
+  "autoload": {
+    "files": [ 
+        "registration.php" 
+    ],
+    "psr-4": {
+      "Sistche\\ChangeButtonColor\\": ""
+    }
+  }
+}
