@@ -1,5 +1,7 @@
 # Sistche_ChangeButtonColor
 
+Este módulo Magento permite alterar dinamicamente a cor de todos os botões de uma store view específica via comando CLI, aplicando a alteração imediatamente no frontend.
+
 # Decisões técnicas
 ### Persistência da configuração por escopo
 
@@ -61,7 +63,7 @@ O comando CLI implementa a limpeza automática do cache (`bin/magento cache:clea
 O módulo implementa suporte a traduções para mensagens exibidas no comando CLI, garantindo compatibilidade com diferentes idiomas.  
 
 - As mensagens de sucesso, erro e instruções do comando foram extraídas para arquivos CSV de tradução (`i18n/en_US.csv` e `i18n/pt_BR.csv`). 
- 
+
 # Testes e validações
 
 Os testes foram realizados em ambiente de desenvolvimento (`developer mode`), validando tanto o funcionamento do comando de console quanto o impacto visual da alteração no frontend.
