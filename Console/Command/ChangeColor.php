@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Sistche\ChangeButtonColor\Console\Command;
 
 use Magento\Framework\App\Config\Storage\WriterInterface;
+use Magento\Framework\App\Cache\Manager as CacheManager;
 use Magento\Store\Model\StoreManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,7 +19,8 @@ class ChangeColor extends Command
 
     public function __construct(
         protected StoreManagerInterface $storeManager,
-        protected WriterInterface $configWriter
+        protected WriterInterface $configWriter,
+        protected CacheManager $cacheManager
     ) {
         parent::__construct();
     }
@@ -57,7 +59,14 @@ class ChangeColor extends Command
         );
 
         $output->writeln('<info>Button color updated successfully</info>');
-        $output->writeln('<comment>Run bin/magento cache:clean to apply the changes</comment>');
+        
+        $this->cacheManager->clean([
+            'config',
+            'layout',
+            'full_page'
+        ]);
+        
+        $output->writeln('<comment>Cache cleaned automatically</comment>');
 
         return Command::SUCCESS;
     }
