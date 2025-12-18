@@ -11,6 +11,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class ChangeColor
+ *
+ * Console command to change button color by store view
+ */
 class ChangeColor extends Command
 {
     private const COLOR = 'hex';
@@ -25,6 +30,9 @@ class ChangeColor extends Command
         parent::__construct();
     }
 
+    /**
+     * Configure the command
+     */
     protected function configure(): void
     {
         $this->setName('color:change')
@@ -33,6 +41,14 @@ class ChangeColor extends Command
             ->addArgument(self::STORE, InputArgument::REQUIRED, ('Store View ID'));
     }
 
+    /**
+     * Execute the command
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $hex = $input->getArgument(self::COLOR);

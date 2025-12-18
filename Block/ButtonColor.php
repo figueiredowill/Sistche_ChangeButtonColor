@@ -9,6 +9,11 @@ class ButtonColor extends Template
 {
     private const XML_PATH_COLOR = 'design/button/color';
 
+    /**
+     * Get the button color from configuration
+     *
+     * @return string|null
+     */
     public function getColor(): ?string
     {
         return $this->_scopeConfig->getValue(
