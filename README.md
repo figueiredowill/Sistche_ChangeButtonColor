@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# Sistche_ChangeButtonColor
-Magento 2 module to dynamically change button colors per store view via CLI
-=======
 # Decisões técnicas
 ### Persistência da configuração por escopo
 
@@ -90,4 +86,3 @@ bin/magento cache:clean
 ```
 
 Após isso, ao acessar a store view configurada, todos os botões estarão com a nova cor aplicada.
->>>>>>> 126eac5 (Initial implementation of dynamic button color change per store view)
