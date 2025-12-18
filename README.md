@@ -9,47 +9,34 @@ O primeiro passo foi definir onde e como a cor seria armazenada. Para isso, o va
 
 ### Aplicação imediata da alteração no frontend
 
-Como o requisito do teste exige que a mudança seja aplicada de forma dinâmica, rápida, com o mínimo de esforço por parte do usuário, foi decidido não utilizar LESS ou o pipeline de static content. Em vez disso, a solução insere o CSS dinamicamente no `head` da página, permitindo que a alteração seja refletida imediatamente após a execução do comando, garantindo isolamento por store view.
+Para atender ao requisito do teste, mudança de cor rápida, dinâmica e sem necessidade de intervenção técnica por parte do usuário, optei por injetar CSS inline diretamente no <head> da página via um bloco PHP do módulo.
 
-### Injeção do CSS via layout (`head.additional`)
-
-Para aplicar a cor dos botões de forma dinâmica, o módulo adiciona um bloco ao container `head.additional` no layout:
-
-```xml
-<referenceContainer name="head.additional">
-    <block class="Sistche\ChangeButtonColor\Block\ButtonColor" 
-           name="sistche.changebuttoncolor" 
-           template="Sistche_ChangeButtonColor::button_color.phtml"/>
-</referenceContainer>
-```
-
-O CSS é carregado antes do corpo da página, garantindo que todos os botões da store view sejam afetados imediatamente.
-Essa abordagem evita alterações diretas em arquivos de tema, mantendo compatibilidade com múltiplas store views.
-
-### Seletores CSS e efeito hover
-O bloco PHP ButtonColor gera o seguinte CSS inline:
-
+O bloco consome a configuração armazenada na tabela core_config_data e gera um <style> com os seguintes seletores:
 ```css
 .action.primary,
 button.primary,
 .action.tocart.primary {
-    background-color: #HEX !important;
-    border-color: #HEX !important;
+    background-color: #HEX;
+    border-color: #HEX;
 }
 ```
 
-Os seletores cobrem todos os botões principais do Magento.
-O uso de !important garante que o estilo inline sobrescreva quaisquer regras de CSS existentes no tema ou módulos de terceiros.
+- O CSS é carregado antes do render do corpo da página, garantindo que os botões afetados pelo seletor sejam atualizados imediatamente.
+- O escopo por store view é respeitado, mantendo isolamento entre lojas.
+- Evita alterações em arquivos de tema ou LESS, permitindo alterações rápidas pelo comando CLI.
 
-### Leitura e geração dinâmica do CSS
+Os seletores `.action.primary`, `button.primary`, `.action.tocart.primary` cobrem todos os botões principais do Magento, inclusive de "adicionar ao carrinho".
+No código CSS o uso de `!important` garante que o estilo inline sobrescreva quaisquer regras de CSS existentes no tema ou módulos de terceiros.
 
-No frontend, o Block PHP `Sistche\ChangeButtonColor\Block\ButtonColor` é responsável por consumir a configuração armazenada e gerar o CSS inline apenas quando uma cor está definida.
+> **Sobre boas práticas:**
+Estou ciente de que injetar CSS inline não é recomendado para produção em Magento, pois quebra a separação de estilos e dificulta manutenção e overrides de tema.
+A prática correta seria usar LESS ou CSS do tema, mas isso exigiria recompilação de static content para cada alteração de cor, o que não atende ao requisito do teste.
 
 ### Limpeza de cache automatizada
 
 O comando CLI implementa a limpeza automática do cache (`bin/magento cache:clean`) **apenas se a execução for bem-sucedida**, garantindo que a nova configuração seja aplicada imediatamente no frontend. Dessa forma, o usuário não precisa executar comandos adicionais.
 
-> **Observação:** Tenho ciência que em ambientes maiores, a execução automática de limpeza de cache pode impactar o desempenho; nesse caso, é aceitável dado o escopo limitado e o requisito de aplicação imediata da alteração.
+> **Observação:** Optei pela execução automática de limpeza de cache dado o escopo limitado e o requisito de aplicação imediata da alteração, porém estou ciente de que em ambientes maiores essa prática poderia impactar no desempenho.
 
 ### Internacionalização (i18n)
 
