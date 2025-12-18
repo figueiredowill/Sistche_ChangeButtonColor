@@ -34,7 +34,7 @@ A prática correta seria usar LESS ou CSS do tema, mas isso exigiria recompilaç
 
 ### Limpeza de cache automatizada
 
-O comando CLI implementa a limpeza automática do cache (`bin/magento cache:clean`) **apenas se a execução for bem-sucedida**, garantindo que a nova configuração seja aplicada imediatamente no frontend. Dessa forma, o usuário não precisa executar comandos adicionais.
+O comando CLI realiza a limpeza automática dos caches relevantes (`config`, `layout` e `full_page`) **apenas se a execução for bem-sucedida**, garantindo que a nova configuração seja aplicada imediatamente no frontend. Para isso, utiliza-se a API interna de gerenciamento de cache do Magento `\Magento\Framework\App\Cache\Manager`.
 
 > **Observação:** Optei pela execução automática de limpeza de cache dado o escopo limitado e o requisito de aplicação imediata da alteração, porém estou ciente de que em ambientes maiores essa prática poderia impactar no desempenho.
 
