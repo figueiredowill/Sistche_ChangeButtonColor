@@ -29,10 +29,9 @@ class ChangeColor extends Command
     {
         $this->setName('color:change')
             ->setDescription('Change buttons color by store-view')
-            ->addArgument(self::COLOR, InputArgument::REQUIRED, 'HEX color')
-            ->addArgument(self::STORE, InputArgument::REQUIRED, 'Store View ID');
+            ->addArgument(self::COLOR, InputArgument::REQUIRED, ('HEX color'))
+            ->addArgument(self::STORE, InputArgument::REQUIRED, ('Store View ID'));
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -40,14 +39,14 @@ class ChangeColor extends Command
         $storeId = (int) $input->getArgument(self::STORE);
 
         if (!preg_match('/^[0-9A-Fa-f]{6}$/', $hex)) {
-            $output->writeln('<error>Invalid HEX color</error>');
+            $output->writeln('<error>' . __('Invalid HEX color') . '</error>');
             return Command::FAILURE;
         }
 
         try {
             $this->storeManager->getStore($storeId);
         } catch (\Exception $e) {
-            $output->writeln('<error>Store view does not exist</error>');
+            $output->writeln('<error>' . __('Store view does not exist') . '</error>');
             return Command::FAILURE;
         }
 
@@ -58,15 +57,15 @@ class ChangeColor extends Command
             $storeId
         );
 
-        $output->writeln('<info>Button color updated successfully</info>');
-        
+        $output->writeln('<info>' . __('Button color updated successfully') . '</info>');
+
         $this->cacheManager->clean([
             'config',
             'layout',
             'full_page'
         ]);
-        
-        $output->writeln('<comment>Cache cleaned automatically</comment>');
+
+        $output->writeln('<comment>' . __('Cache cleaned automatically') . '</comment>');
 
         return Command::SUCCESS;
     }
